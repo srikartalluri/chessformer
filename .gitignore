@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.pyo
+*.log
+
+# Ignore virtual environment
+venv/
+env/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore everything in the data/ directory
+data/*
+
+# Allow the data/ directory itself to remain in version control
+!data/
+
+# Optionally allow specific files in the data/ directory (e.g., README.md)
+!data/README.md
+
+# Ignore everything in the models/ directory
+models/*
+
+# Allow the models/ directory itself to remain in version control
+!models/
+
