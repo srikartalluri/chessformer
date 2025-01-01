@@ -1,0 +1,6 @@
+{
+    "hidden_size": 768,
+    "seq_len": 256,
+    "n_layer": 16,
+    "n_head": 8
+}
