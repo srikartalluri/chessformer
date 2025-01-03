@@ -1,6 +1,19 @@
 {
+    "___": "Model Configs",
     "hidden_size": 768,
     "seq_len": 256,
     "n_layer": 16,
-    "n_head": 8
+    "n_head": 8,
+
+    "___": "Training Configs",
+    "enable_checkpoint": true,
+
+    "___": "Training Configs",
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "num_epochs": 100,
+    "print_every": 1,
+    "save_every": 10,
+    "eval_every": 2
+
 }

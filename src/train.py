@@ -12,35 +12,11 @@ from chessdata import ChessDataset
 
 import json
 from metrics import *
+from utils import setup
 
+from eval_play import play_n
+from engine import Engine
 
-def setup():
-    cpu_device = torch.device("cpu")
-
-    # Check if MPS backend is available
-    if torch.backends.mps.is_available():
-        print("Using MPS backend")
-        gpu_device = torch.device("mps")
-    else:
-        print("Using Cuda backend")
-        gpu_device = torch.device("cuda")
-    
-    tok = ChessTokenizer()
-
-    # Load the configuration from config.json
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
-
-    vocab_size = tok.vocabulary_size()
-
-    config_gpt = GPT2Config(vocab_size=vocab_size, n_positions=config["seq_len"], n_ctx=config["seq_len"], n_embd=config["hidden_size"], n_layer=config["n_layer"], n_head=config["n_head"])
-    model = GPT2LMHeadModel(config_gpt)
-    model.to(gpu_device)
-
-    num_of_parameters = sum(map(torch.numel, model.parameters()))
-    print(f"Number of parameters: {num_of_parameters}")
-
-    return model, tok, config, gpu_device
 
 
 
@@ -49,16 +25,16 @@ def setup():
 def main():
     model, tok, config, gpu_device = setup()
 
-    batch_size = 16
-    learning_rate = 1e-3
-    num_epochs = 100
-    print_every = 1
-    save_every = 10
+    batch_size = config["batch_size"]
+    learning_rate = config["learning_rate"]
+    num_epochs = config["num_epochs"]
+    print_every = config["print_every"]
+    save_every = config["save_every"]
+    eval_every = config["eval_every"]
 
     loss_fn = nn.CrossEntropyLoss(ignore_index=0)
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
-    
     model.train()
 
     for epoch in range(num_epochs):
@@ -78,7 +54,7 @@ def main():
             cur_legal_mask = cur_legal_mask.to(gpu_device)
             cur_labels = cur_labels.to(gpu_device)
 
-            outputs = model(input_ids = cur_token_ids, attention_mask = cur_attn_mask).logits
+            outputs = model(input_ids = cur_token_ids, attention_mask = cur_attn_mask)#.logits
             masked_logits = outputs.masked_fill(~cur_legal_mask, float('-1e10'))
             vocab_size = masked_logits.size(-1)
             
@@ -105,7 +81,15 @@ def main():
                 top_1_accuracy = 0.0
                 top_5_accuracy = 0.0
             
-            if (epoch + 1) % save_every == 0:
-                torch.save(model.state_dict(), f"model_{epoch+1}.pt")
-                
+        if (epoch + 1) % save_every == 0:
+            torch.save(model.state_dict(), f"../models/model_{epoch+1}.pt")
+            print("model saved")
+        
+        if (epoch + 1) % eval_every == 0:
+            engine = Engine("", config, tok, model)
+            play_n(engine, 5)
 
+
+
+if __name__ == "__main__":
+    main()
