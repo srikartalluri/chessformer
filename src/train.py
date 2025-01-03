@@ -10,8 +10,8 @@ from chessdata import ChessDataset
 from metrics import *
 from utils import setup
 
-from eval_play import play_n
-from engine import Engine
+# from eval_play import play_n
+# from engine import Engine
 
 def main():
     model, tok, config, gpu_device = setup()
@@ -34,7 +34,7 @@ def main():
         top_1_accuracy = 0.0
         top_5_accuracy = 0.0
 
-        dataset = ChessDataset(file_name="../data/trainingsmall.pgn", tokenizer=tok, max_seq_len=config["seq_len"])
+        dataset = ChessDataset(file_name=config["training_file"], tokenizer=tok, max_seq_len=config["seq_len"])
         dataloader = DataLoader(dataset, batch_size=batch_size)
 
         for i, (cur_token_ids, cur_attn_mask, cur_legal_mask, cur_labels) in enumerate(dataloader):
@@ -76,9 +76,9 @@ def main():
             torch.save(model.state_dict(), f"../models/model_{epoch+1}.pt")
             print("model saved")
         
-        if (epoch + 1) % eval_every == 0:
-            engine = Engine("", config, tok, model)
-            play_n(engine, 5)
+        # if (epoch + 1) % eval_every == 0:
+        #     engine = Engine("", config, tok, model)
+        #     play_n(engine, 5)
 
 
 

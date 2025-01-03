@@ -28,3 +28,5 @@ models/*
 # Allow the models/ directory itself to remain in version control
 !models/
 
+*.pem
+
