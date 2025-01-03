@@ -1,19 +1,11 @@
 from stockfish import Stockfish
 import chess
 from engine import Engine
-from tokenizer import ChessTokenizer
-import json
 import random
 
 
 stockfish = Stockfish(path = "../stockfish/stockfish", depth=1, parameters={"Threads": 1, "Minimum Thinking Time": 30})
 stockfish.set_skill_level(1)
-
-# stockfish.set_position(["e2e4", "e7e6", "d2d4"])
-
-# best_move = stockfish.get_best_move()
-
-# print(best_move)
 
 def play_once(engine: Engine, model_first=True, print_moves=False):
     board = chess.Board()
@@ -69,15 +61,3 @@ def play_n(engine: Engine, n, print_moves=False):
     print(f"Wins: {wins}/{games}")
 
     return wins / games, wins
-
-
-
-# with open('config.json', 'r') as config_file:
-#         config = json.load(config_file)
-
-# tok = ChessTokenizer()
-# engine = Engine(model_path="../models/model_10.pt", tokenizer=tok, model_config=config)
-
-# # ret = play_once(engine, stockfish, model_first=False)
-# ret = play_n(engine, stockfish, 10, print_moves=False)
-# print(ret)

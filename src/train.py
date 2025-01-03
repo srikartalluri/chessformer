@@ -1,26 +1,17 @@
 import torch
 import torch.nn as nn
-from transformers import GPT2Config, GPT2LMHeadModel
 
 from torch.utils.data import DataLoader
 import torch.optim as optim
-from tokenizer import ChessTokenizer
 
 import gc
-from model import ChessGPTModel
 from chessdata import ChessDataset
 
-import json
 from metrics import *
 from utils import setup
 
 from eval_play import play_n
 from engine import Engine
-
-
-
-
-
 
 def main():
     model, tok, config, gpu_device = setup()

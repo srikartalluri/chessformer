@@ -1,6 +1,5 @@
-import torch
 import torch.nn as nn
-from transformers import GPT2Config, GPT2LMHeadModel, GPT2Model
+from transformers import GPT2Config, GPT2Model
 
 # mps_device = torch.device("mps")
 # cpu_device = torch.device("cpu")
