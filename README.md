@@ -11,6 +11,10 @@ I'm not uploading the pgn files to github because they are too big, but they can
 
 I'm training on gpus on google colab on free tier so not much compute power is available to train a good model on millions of games.
 
+
+Every model has tokenizer, dataset, model, and engine
+
+
 v0:
 The first model I trained is on the first 1000 games from dataset so it's not very good at playing chess. It does openings pretty well but bad at everything else.
 

@@ -2,10 +2,11 @@ from stockfish import Stockfish
 import chess
 from engine import Engine
 import random
+from utils import setup
 
 
 stockfish = Stockfish(path = "../stockfish/stockfish", depth=1, parameters={"Threads": 1, "Minimum Thinking Time": 30})
-stockfish.set_skill_level(1)
+stockfish.set_elo_rating(200)
 
 def play_once(engine: Engine, model_first=True, print_moves=False):
     board = chess.Board()
@@ -61,3 +62,8 @@ def play_n(engine: Engine, n, print_moves=False):
     print(f"Wins: {wins}/{games}")
 
     return wins / games, wins
+
+model, tok, config, gpu_device = setup()
+engine = Engine(model_path = "../models/model_10.pt", model_config = config, tokenizer = tok, model = model)
+
+play_n(engine, 10, print_moves=False)
