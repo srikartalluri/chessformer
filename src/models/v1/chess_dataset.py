@@ -26,6 +26,7 @@ class ChessDataset(IterableDataset):
 
         self.bucket = "chessformerdata"
         self.prefix = prefix
+        load_dotenv()
         self.fs = s3fs.S3FileSystem()
         
         self.files = self.fs.ls(f"{self.bucket}/{self.prefix}")
@@ -99,11 +100,12 @@ class ChessDataset(IterableDataset):
         return True        
 
     def __iter__(self):
-        
+        # print("here")
         for file_key in self.files:
+            # print(file_key)
             if "training" not in file_key:
                 continue
-            print(file_key)
+            
             
             with self.fs.open(file_key, 'r') as f:
                 while True:

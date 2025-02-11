@@ -1,5 +1,6 @@
 {
     "___": "Model Configs",
+    "model_version": "v1",
     "hidden_size": 768,
     "seq_len": 256,
     "n_layer": 16,
@@ -10,11 +11,11 @@
 
     "___": "Training Configs",
     "training_file": "../data/trainingbig.pgn",
-    "batch_size": 32,
+    "batch_size": 16,
     "learning_rate": 0.0001,
     "num_epochs": 100,
     "print_every": 16,
-    "save_every": 10,
+    "save_every": 1,
     "eval_every": 10
 
 }
