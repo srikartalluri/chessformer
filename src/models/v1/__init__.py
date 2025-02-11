@@ -10,7 +10,4 @@ Total Tokens: 2 + 64 + 5 = 71
 
 Add two special tokens for start and end of sequence -> 73 total
 
-
-
-
 """
