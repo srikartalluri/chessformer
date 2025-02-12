@@ -48,19 +48,21 @@ Every model version has tokenizer, dataset, model, and engine
 
 # Version History
 
-v0:
+### v0
 Model: Bert Base, very small model. The first model I trained is on the first 1000 games from dataset so it's not very good at playing chess. It does openings pretty well but bad at everything else.
 
 I'm training on gpus on google colab on free tier so not much compute power is available to train a good model on millions of games.
 
 
-v1:
-Model: GPT2LMHeadModel
+### v1
 
-Didn't mess around with the model itself, but rather tokenization, move legality, and training processes. Uses an auto-regressive model to predict next move.
+Switched to a causal LLM - GPT. Didn't mess around with the model itself, but rather tokenization, move legality, and training processes. Uses an auto-regressive model to predict next move.
 
 Also massively increased size of model and dataset. Approx ~100 million params. Trained on 4 million games (all games from 2024 and 2023)
 
 Performs much better and beats me in chess (I'm rated ~1600)
 
+# Inference
+Download the model, and run the ```python lichess_boy.py``` script.
 
+You will need to have a lichess api token to play. You can get one from https://lichess.org/account/oauth/token
