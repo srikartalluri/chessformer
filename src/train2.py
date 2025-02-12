@@ -86,7 +86,7 @@ def main():
                 top_5_accuracy = 0.0
             
         if (epoch + 1) % save_every == 0:
-            torch.save(model.state_dict(), f"../models/model_{epoch+1}.pt")
+            torch.save(model.state_dict(), f"./models/model_{epoch+1}.pt")
             print("model saved")
 
 
