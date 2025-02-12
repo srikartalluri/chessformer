@@ -30,6 +30,8 @@ I'm not uploading the pgn files to github because they are too big, but they can
 │   └── utils.py
 ```
 
+# Data
+I host data in aws bucket and stream from there. The files were multiple gigabytes so this felt like the best solution without slowing down my computer. It also made training on aws gpu's much easier. To run the train ensure that you have proper credentials to access your bucket.
 
 # Training Models
 
