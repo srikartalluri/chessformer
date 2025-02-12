@@ -9,12 +9,24 @@ import gc
 from metrics import *
 from utils import setup
 from transformers import get_linear_schedule_with_warmup
+import argparse
 
 # from eval_play import play_n
 # from engine import Engine
 
+
+
+
 def main():
+    
+
     model, tok, config, gpu_device, chess_dataset = setup()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--batch_size', type=int, default=None, help='Batch size for DataLoader')
+    args = parser.parse_args()
+    batch_size = args.batch_size if args.batch_size else config["batch_size"]
+
 
     batch_size = config["batch_size"]
     learning_rate = config["learning_rate"]
